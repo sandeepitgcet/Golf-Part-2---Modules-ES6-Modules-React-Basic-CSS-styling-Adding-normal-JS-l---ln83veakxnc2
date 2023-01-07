@@ -25,7 +25,7 @@ const App = () => {
       }
       document.addEventListener("keydown",handle);
 
-      return (()=> document.removeEventListener("keydown",handleKey));
+      return (()=> document.removeEventListener("keydown",handle));
     },[key])
   }
   useEffect(()=>{
