@@ -37,6 +37,8 @@ const App = () => {
   },[x,y])
   
   const reset = () => {
+    setX(x => 0);
+    setY(y => 0);
     setRenderBall(renderBall => !renderBall)
   };
   const startGame = () => {
