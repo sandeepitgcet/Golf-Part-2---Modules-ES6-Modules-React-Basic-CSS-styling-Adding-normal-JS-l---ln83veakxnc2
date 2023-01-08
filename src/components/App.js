@@ -27,13 +27,15 @@ const App = () => {
   
   
   useEffect(()=>{
+    window.addEventListener('keydown', handleKey);
     console.log("hii"+x+" "+y);
     let pos = {...ballPosition};
     pos.left= x+"px";
     pos.top = y+"px";
     setBallPosition(pos);
-    document.addEventListener("keydown", handleKey);
-    return document.removeEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+    };
   },[x,y])
   
   const reset = () => {
