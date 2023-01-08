@@ -11,29 +11,29 @@ const App = () => {
     left: "0px",
     top: "0px",
   });
-  
-  function useKey(key, cb){
-    const callBackRef = useCallback(cb);
-    useEffect(()=>{
-      callBackRef.current = cb;
-    })
-    useEffect(()=>{
-      function handle(event){
-        if(event.code === key){
-          callBackRef.current(event); 
-        }
-      }
-      document.addEventListener("keydown",handle);
 
-      return (()=> document.removeEventListener("keydown",handle));
-    },[key])
+  const handleKey = (event) => {
+    //console.log(event.key);
+    if(event.keyCode === 39){ //RIght
+        setX(x+5)
+    }else if(event.keyCode === 38){ //Up
+      setY(y-5)
+    }else if(event.keyCode === 37){ //Left
+      setX(x-5);
+    }else if(event.keyCode === 40){ //Down
+      setY(y+5)
+    }
   }
+  
+  
   useEffect(()=>{
     console.log("hii"+x+" "+y);
     let pos = {...ballPosition};
     pos.left= x+"px";
     pos.top = y+"px";
     setBallPosition(pos);
+    document.addEventListener("keydown", handleKey);
+    return document.removeEventListener("keydown", handleKey);
   },[x,y])
   
   const reset = () => {
@@ -41,10 +41,12 @@ const App = () => {
     setY(y => 0);
     setRenderBall(renderBall => !renderBall)
   };
+
+  
   const startGame = () => {
     console.log("Game is started");
     setRenderBall(renderBall => !renderBall)
-    //document.addEventListener("keydown", handleKey);
+    document.addEventListener("keydown", handleKey);
   }
   
   
@@ -62,36 +64,7 @@ const App = () => {
         )
       }
   };
-  function handleRight(){
-    console.log("RIght is handled");
-    if(!renderBall){
-      setX(x => x+5);
-      console.log("ball moved")
-    }
-    
-  }
-  function handleLeft(){
-    console.log("Left is handled");
-    if(!renderBall){
-       setX(x=> (x-5))
-    }
-   
-  }
-  function handleUp(){
-    console.log("Up is handled");
-    if(!renderBall)
-    setY(y => (y-5));
-  }
-  function handleDown(){
-    console.log("Down is handled");
-    if(!renderBall)
-    setY(y => (y+5))
-  }
-  useKey("ArrowRight", handleRight)
-  useKey("ArrowLeft",handleLeft)
-  useKey("ArrowUp", handleUp)
-  useKey("ArrowDown",handleDown)
-
+  
   return (
     <div className="playground">
       {renderChoice() }
