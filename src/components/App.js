@@ -61,7 +61,7 @@ const App = () => {
         return (
           <>
             <div style={ballPosition} className="ball"></div>
-            <button onClick={reset} className="reset">Reset</button>
+            
           </>
         )
       }
@@ -69,6 +69,7 @@ const App = () => {
   
   return (
     <div className="playground">
+      <button onClick={reset} className="reset">Reset</button>
       {renderChoice() }
     </div>
   );
